@@ -20,18 +20,6 @@ public class GameActivity extends AppCompatActivity {
         final TextView cdtimer;
         cdtimer = (TextView)findViewById(R.id.textView4);
 
-
-        new CountDownTimer(101000, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-                cdtimer.setText("Seconds : " + millisUntilFinished / 1000);
-            }
-
-            public void onFinish() {
-                cdtimer.setText("done!");
-            }
-        }.start();
-
         final int min = 101;
         final int max = 999;
 
@@ -49,6 +37,28 @@ public class GameActivity extends AppCompatActivity {
                 newQuestion(ques,min,max,num);
             }
         });
+
+        Button clickButton2 = (Button) findViewById(R.id.button3);
+
+        clickButton2.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                endGame();
+            }
+        });
+
+        new CountDownTimer(11000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                cdtimer.setText("Seconds : " + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+                endGame();
+            }
+        }.start();
+
     }
 
     public void newQuestion(TextView ques, int min, int max, TextView num)
@@ -64,8 +74,9 @@ public class GameActivity extends AppCompatActivity {
         num.setText(String.valueOf(val));
     }
 
-    public void endGame(View view)
+    public void endGame()
     {
+        //intent.putExtra("POINTS", points);
         Intent intent = new Intent(GameActivity.this, PointsActivity.class);
         startActivity(intent);
     }
